@@ -46,3 +46,20 @@ function createChildElement(tagName, parentElement) {
 }
 
 recepty.forEach(addToList);
+
+let searchBarInput = document.getElementById('hledat');
+searchBarInput.addEventListener('change', onSearchBarChange);
+
+function onSearchBarChange() {
+    let searchBarInput = document.getElementById('hledat').value.toLowerCase();
+
+    let parentDiv = document.getElementById('recepty');
+    parentDiv.innerHTML = "";
+
+    recepty.forEach(function(recipe) {
+        if(recipe.nadpis.toLowerCase().includes(searchBarInput)) {
+            addToList(recipe);
+        }
+    })
+}
+
