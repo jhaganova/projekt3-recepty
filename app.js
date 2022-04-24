@@ -17,3 +17,32 @@ recept-hodnoceni, recept-nazev, recept-popis.
 
 6) Poslední vybraný recept ulož do Local Storage, aby se při novém otevření aplikace načetl.
 */
+
+
+function addToList(recipe) {
+    let parentDiv = document.getElementById('recepty');
+    
+    let listItemDiv = createChildElement('div', parentDiv);
+    listItemDiv.classList.add('recept');
+
+    let listItemPictureDiv = createChildElement('div', listItemDiv);
+    listItemPictureDiv.classList.add('recept-obrazek');
+
+    let listItemPicture = createChildElement('img', listItemPictureDiv);
+    listItemPicture.src = recipe.img;
+    listItemPicture.alt = 'Obrazek';
+
+    let listItemInfoDiv = createChildElement('div', listItemDiv);
+    listItemInfoDiv.classList.add('recept-info');
+
+    let listItemInfoHeader = createChildElement('h3', listItemInfoDiv);
+    listItemInfoHeader.innerText = recipe.nadpis;
+}
+
+function createChildElement(tagName, parentElement) {
+    let result = document.createElement(tagName);
+    parentElement.appendChild(result);
+    return result;
+}
+
+recepty.forEach(addToList);
