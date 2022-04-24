@@ -47,19 +47,43 @@ function createChildElement(tagName, parentElement) {
 
 recepty.forEach(addToList);
 
-let searchBarInput = document.getElementById('hledat');
-searchBarInput.addEventListener('change', onSearchBarChange);
 
+// SEARCH BAR & FILTERING
 function onSearchBarChange() {
-    let searchBarInput = document.getElementById('hledat').value.toLowerCase();
+    updateList();
+}
 
+let searchBarInput = document.getElementById('hledat');
+searchBarInput.addEventListener('input', onSearchBarChange);
+
+function categorySelected() {
+    updateList();
+}
+
+let categorySelection = document.getElementById('kategorie');
+categorySelection.addEventListener('change', categorySelected);
+
+
+
+function updateList() {
     let parentDiv = document.getElementById('recepty');
     parentDiv.innerHTML = "";
 
+    // search bar
+    let searchBarInput = document.getElementById('hledat').value.toLowerCase();
+
+    // category selection
+    let categorySelection = document.getElementById('kategorie').value;
+
+
+    //update list
     recepty.forEach(function(recipe) {
-        if(recipe.nadpis.toLowerCase().includes(searchBarInput)) {
+        if(recipe.nadpis.toLowerCase().includes(searchBarInput) && (categorySelection == recipe.kategorie || categorySelection == "")) {
             addToList(recipe);
         }
     })
 }
 
+
+
+//link search button
