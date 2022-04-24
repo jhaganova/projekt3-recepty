@@ -63,6 +63,12 @@ function categorySelected() {
 let categorySelection = document.getElementById('kategorie');
 categorySelection.addEventListener('change', categorySelected);
 
+function ratingSelected() {
+    updateList();
+}
+
+let ratingSelection = document.getElementById('razeni');
+ratingSelection.addEventListener('change', ratingSelected);
 
 
 function updateList() {
@@ -70,20 +76,26 @@ function updateList() {
     parentDiv.innerHTML = "";
 
     // search bar
-    let searchBarInput = document.getElementById('hledat').value.toLowerCase();
+    let searchBarInputValue = searchBarInput.value.toLowerCase();
 
     // category selection
-    let categorySelection = document.getElementById('kategorie').value;
+    let categorySelectionValue = categorySelection.value;
 
+    //rating sorting
+    let ratingSelectionValue = ratingSelection.value;
+    let sortedRecipes = recepty.slice();
+    if(ratingSelectionValue == "1") {
+        sortedRecipes.sort(function(a, b){return b.hodnoceni - a.hodnoceni});
+    }
+    if(ratingSelectionValue == "2") {
+        sortedRecipes.sort(function(a, b){return a.hodnoceni - b.hodnoceni});        
+    }
 
     //update list
-    recepty.forEach(function(recipe) {
-        if(recipe.nadpis.toLowerCase().includes(searchBarInput) && (categorySelection == recipe.kategorie || categorySelection == "")) {
+    sortedRecipes.forEach(function(recipe) {
+        if(recipe.nadpis.toLowerCase().includes(searchBarInputValue) && (categorySelectionValue == recipe.kategorie || categorySelectionValue == "")) {
             addToList(recipe);
         }
     })
 }
 
-
-
-//link search button
