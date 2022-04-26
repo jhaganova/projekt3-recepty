@@ -18,6 +18,8 @@ recept-hodnoceni, recept-nazev, recept-popis.
 6) Poslední vybraný recept ulož do Local Storage, aby se při novém otevření aplikace načetl.
 */
 
+let lastClickedItem = undefined;
+
 
 function addToList(recipe) {
     let parentDiv = document.getElementById('recepty');
@@ -39,7 +41,7 @@ function addToList(recipe) {
     listItemInfoHeader.innerText = recipe.nadpis;
 
     listItemDiv.onclick = function() {
-        showItemDetails(recipe)
+        showItemDetails(recipe, listItemDiv)
     };
 }
 
@@ -103,8 +105,14 @@ function updateList() {
     })
 }
 
-function showItemDetails(recipe) {
+function showItemDetails(recipe, listItemDiv) {
     createItemDetails(recipe);
+    if (lastClickedItem !== undefined) {
+        lastClickedItem.style.backgroundColor = '#fff';
+    }
+    
+    listItemDiv.style.backgroundColor = '#eeeeee';
+    lastClickedItem = listItemDiv;    
 }
 
 function createItemDetails(recipe) {
@@ -123,12 +131,3 @@ function createItemDetails(recipe) {
     let detailItemDescription = document.getElementById('recept-popis');
     detailItemDescription.innerText = recipe.popis;
 }
-
-
-
-
-
-
-
-
-//star
