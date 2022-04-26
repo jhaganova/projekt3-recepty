@@ -37,6 +37,10 @@ function addToList(recipe) {
 
     let listItemInfoHeader = createChildElement('h3', listItemInfoDiv);
     listItemInfoHeader.innerText = recipe.nadpis;
+
+    listItemDiv.onclick = function() {
+        showItemDetails(recipe)
+    };
 }
 
 function createChildElement(tagName, parentElement) {
@@ -99,3 +103,32 @@ function updateList() {
     })
 }
 
+function showItemDetails(recipe) {
+    createItemDetails(recipe);
+}
+
+function createItemDetails(recipe) {
+    let detailItemPhoto = document.getElementById('recept-foto');
+    detailItemPhoto.src = recipe.img;
+
+    let detailItemCategory = document.getElementById('recept-kategorie');
+    detailItemCategory.innerText = recipe.kategorie;
+
+    let detailItemRating = document.getElementById('recept-hodnoceni');
+    detailItemRating.innerText = recipe.hodnoceni;
+
+    let detailItemName = document.getElementById('recept-nazev');
+    detailItemName.innerText = recipe.nadpis;
+
+    let detailItemDescription = document.getElementById('recept-popis');
+    detailItemDescription.innerText = recipe.popis;
+}
+
+
+
+
+
+
+
+
+//star
