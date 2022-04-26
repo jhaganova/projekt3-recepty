@@ -19,6 +19,12 @@ recept-hodnoceni, recept-nazev, recept-popis.
 */
 
 let lastClickedItem = undefined;
+let searchBarInput = document.getElementById('hledat');
+let categorySelection = document.getElementById('kategorie');
+let ratingSelection = document.getElementById('razeni');
+
+recepty.forEach(addToList);
+initializeEventListeners();
 
 
 function addToList(recipe) {
@@ -57,32 +63,25 @@ function createChildElement(tagName, parentElement) {
     return result;
 }
 
-recepty.forEach(addToList);
-
-
 
 // SEARCH BAR & FILTERING
+function initializeEventListeners() {
+    searchBarInput.addEventListener('input', onSearchBarChange);
+    categorySelection.addEventListener('change', categorySelected);
+    ratingSelection.addEventListener('change', ratingSelected);
+}
+
 function onSearchBarChange() {
     updateList();
 }
-
-let searchBarInput = document.getElementById('hledat');
-searchBarInput.addEventListener('input', onSearchBarChange);
 
 function categorySelected() {
     updateList();
 }
 
-let categorySelection = document.getElementById('kategorie');
-categorySelection.addEventListener('change', categorySelected);
-
 function ratingSelected() {
     updateList();
 }
-
-let ratingSelection = document.getElementById('razeni');
-ratingSelection.addEventListener('change', ratingSelected);
-
 
 function updateList() {
     let parentDiv = document.getElementById('recepty');
