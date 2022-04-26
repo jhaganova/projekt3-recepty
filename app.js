@@ -43,6 +43,12 @@ function addToList(recipe) {
     listItemDiv.onclick = function() {
         showItemDetails(recipe, listItemDiv)
     };
+
+    listItemDiv.recipeIndex = recepty.indexOf(recipe);
+
+    if (localStorage.lastOpened == listItemDiv.recipeIndex) {
+        showItemDetails(recipe, listItemDiv);
+    }
 }
 
 function createChildElement(tagName, parentElement) {
@@ -52,6 +58,7 @@ function createChildElement(tagName, parentElement) {
 }
 
 recepty.forEach(addToList);
+
 
 
 // SEARCH BAR & FILTERING
@@ -107,12 +114,15 @@ function updateList() {
 
 function showItemDetails(recipe, listItemDiv) {
     createItemDetails(recipe);
+
     if (lastClickedItem !== undefined) {
         lastClickedItem.style.backgroundColor = '#fff';
     }
     
     listItemDiv.style.backgroundColor = '#eeeeee';
-    lastClickedItem = listItemDiv;    
+    lastClickedItem = listItemDiv;
+
+    saveItemToLocalStorage(lastClickedItem);
 }
 
 function createItemDetails(recipe) {
@@ -130,4 +140,8 @@ function createItemDetails(recipe) {
 
     let detailItemDescription = document.getElementById('recept-popis');
     detailItemDescription.innerText = recipe.popis;
+}
+
+function saveItemToLocalStorage(lastClickedItem) {
+    localStorage.lastOpened = lastClickedItem.recipeIndex;
 }
